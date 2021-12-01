@@ -1,7 +1,5 @@
-#Assuming that the argument for parameter is either a positive or negative integer
-#Assuming that string argument contains only letters in the alphabet and no special characters or numbers
-
 def ceasar_cipher(string, shift)
+  # Support shift values that are less than -26 and greater than 26
   if shift.abs > 26
     if shift < 0
       shift = shift.abs % 26
@@ -12,20 +10,20 @@ def ceasar_cipher(string, shift)
   end
   
   new_string = string.split('')
-  
-  new_string = new_string.map do |letter|
-    letter.ord
-  end
+  new_string = new_string.map { |letter| letter.ord }
   
   new_string = new_string.map do |char_number|
     shift_number = 26 - shift.abs
     
-    a, z = if char_number.between?(65, 90)
-      [65, 90]
-    elsif char_number.between?(97, 122)
-      [97, 122]
+    # .ord values for 'A' to 'Z' is 65-90, and 'a' to 'z' is 97-122
+    # Return values as-is that are not letters in the alphabet
+    (a, z) = case char_number
+      when 65..90 then [65, 90]
+      when 97..122 then [97, 122]
+      else next char_number
     end
     
+    # Conditional logic that wraps alphabetical letters from Z to A
     if (char_number + shift) > z
       char_number -= shift_number
     elsif (char_number + shift) < a
@@ -40,4 +38,4 @@ def ceasar_cipher(string, shift)
   puts new_string
 end
 
-ceasar_cipher('cat', -55)
+ceasar_cipher('Cat123xYZ!', -55)
