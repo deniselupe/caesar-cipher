@@ -1,4 +1,4 @@
-def ceasar_cipher(string, shift)
+def caesar_cipher(string, shift)
   # Support shift values that are less than -26 and greater than 26
   if shift.abs > 26
     if shift < 0
@@ -8,7 +8,9 @@ def ceasar_cipher(string, shift)
       shift = shift.abs % 26
     end
   end
-  
+
+  # Split string into an array of characters, and convert each character into its Unicode code value
+  # The end result will be an array of Unicode characters
   new_string = string.split('')
   new_string = new_string.map { |letter| letter.ord }
   
@@ -35,7 +37,6 @@ def ceasar_cipher(string, shift)
   
   new_string = new_string.map { |char| char.chr }
   new_string = new_string.join('')
-  puts new_string
 end
 
-ceasar_cipher('Cat123xYZ!', -55)
+caesar_cipher('Cat123xYZ!', -55)
